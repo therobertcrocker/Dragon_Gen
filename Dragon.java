@@ -3,7 +3,8 @@ import java.util.ArrayList;
 public class Dragon {
     private String name;
     private String[] color;
-    private Dragon mate;
+    private Drake mate;
+    private Matriarch matriarch;
     private ArrayList<Dragon> daughters;
 
     public Dragon(String name, String color) {
@@ -22,6 +23,18 @@ public class Dragon {
         this.color[1] = c2;
     }
 
+    public Dragon(String name, Matriarch m) {
+        this.name = name;
+        matriarch = m;
+        m.addDaughter(this);
+        daughters = new ArrayList<>();
+        if (m.colors().length == 2) {
+            color = new String[] {m.colors()[0], m.colors()[1]};
+        } else {
+            color = new String[] {m.colors()[0]};
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -37,12 +50,25 @@ public class Dragon {
         return result;
     }
 
-    public void setMate(Dragon d) {
+    public String[] colors() {
+        return color;
+    }
+
+    public void setMate(Drake d) {
+        d.setMate(this);
         mate = d;
     }
 
-    public Dragon getMate() {
+    public Drake getMate() {
         return mate;
+    }
+
+    public void setMatriarch(Matriarch m) {
+        matriarch = m;
+    }
+
+    public Matriarch getMatriarch() {
+        return matriarch;
     }
 
     public void addDaughter(Dragon d) {
@@ -60,10 +86,10 @@ public class Dragon {
         result += "\"name\": " + q + name + q;
         result += ", \"color\": " + q + getColor() + q;
         if (mate != null) {
-            result += ", 'mate': " + "'" + mate.getName() + "'";
+            result += ", \"mate\": " + mate.toString();
         }
         if (daughters.size() > 0) {
-            result += ", 'daughters': [ ";
+            result += ", \"daughters\": [ ";
             for (int i = 0; i < daughters.size(); i ++) {
                 if (i == daughters.size() - 1) {
                     result += daughters.get(i).toString() + "] ";

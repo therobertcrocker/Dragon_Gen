@@ -11,7 +11,7 @@ SRC = \
 	Dragon.java \
 	Matriarch.java \
 	Clan.java \
-	#Write.java \
+	Drake.java \
 	DragonGen.java
 
 default: classes
@@ -19,4 +19,4 @@ default: classes
 classes: $(SRC:.java=.class)
 
 run: classes
-	java -cp $(CLASSPATH) Clan
+	java -cp $(CLASSPATH) DragonGen

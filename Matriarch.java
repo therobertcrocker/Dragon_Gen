@@ -1,32 +1,49 @@
 import java.util.ArrayList;
 
 public class Matriarch extends Dragon {
-    private ArrayList<Dragon> consorts;
+    private ArrayList<Drake> consorts;
+    private ArrayList<Drake> sons;
 
     public Matriarch(String name, String color) {
         super(name, color);
         consorts = new ArrayList<>();
+        sons = new ArrayList<>();
     }
 
     public Matriarch(String name, String c1, String c2) {
         super(name, c1, c2);
         consorts = new ArrayList<>();
+        sons = new ArrayList<>();
     }
 
-    public void addConsort(Dragon d) {
+    public void addDaughter(Dragon d) {
+        d.setMatriarch(this);
+        super.addDaughter(d);
+    }
+
+    public void addConsort(Drake d) {
         consorts.add(d);
     }
 
-    public ArrayList<Dragon> getConsorts() {
+    public ArrayList<Drake> getConsorts() {
         return consorts;
+    }
+
+    public void addSon(Drake d) {
+        d.setMatriarch(this);
+        sons.add(d);
+    }
+
+    public ArrayList<Drake> getSons() {
+        return sons;
     }
 
     @Override
     public String toString() {
         char q = '"';
         String result ="{ ";
-        result += "'name': " + q + getName() + q;
-        result += ", \" color \":"  + getColor();
+        result += "\"name\": " + q + getName() + q;
+        result += ", \"color\":"  + q + getColor() + q;
         if (getMate() != null) {
             result += ", \"mate\": " + q + getMate().getName() + q;
         }
